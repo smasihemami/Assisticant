@@ -15,13 +15,32 @@ namespace Storyboard
 		public SampleIDDefinitionMode SampleIDDefinitionMode
 		{
 			get => _model.SampleIDDefinitionModel.DefinitionMode;
-			set => _model.SampleIDDefinitionModel.DefinitionMode = value;
+			set
+			{
+				_model.SampleIDDefinitionModel.DefinitionMode = value;
+				PopulateSelectedSampleIDsFromAllSampleIDs();
+			}
 		}
 
 		public int SampleIDNumCharacters
 		{
 			get => _model.SampleIDDefinitionModel.SampleIDNumCharacters;
-			set => _model.SampleIDDefinitionModel.SampleIDNumCharacters = value;
+			set
+			{
+				_model.SampleIDDefinitionModel.SampleIDNumCharacters = value;
+				PopulateSelectedSampleIDsFromAllSampleIDs();
+			}
+		}
+
+		private void PopulateSelectedSampleIDsFromAllSampleIDs()
+		{
+			// when the list of all sample IDs changes, change the _selectedSampleIDs, so that by default all the items
+			// in the CheckedComboBox get selected in UI. This is a user requirement specification for our case.
+			SelectedSampleIDs.Clear();
+			foreach (var sampleID in AllSampleIDs)
+			{
+				SelectedSampleIDs.Add(sampleID);
+			}
 		}
 
 		public IEnumerable<SampleID> AllSampleIDs => _model.AllSampleIDs;

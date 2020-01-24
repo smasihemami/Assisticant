@@ -20,13 +20,6 @@ namespace Storyboard
 			_allSampleIDs = new Computed<IEnumerable<SampleID>>(() =>
 				ComputeAllSampleIDs(_sampleIDDefinitionModel));
 			_selectedSampleIDs = new ObservableList<SampleID>(_allSampleIDs.Value);
-			// when the list of all sample IDs changes, change the _selectedSampleIDs, so that by default all the items
-			// in the CheckedComboBox get selected in UI. This is a user requirement specification for our case.
-			_allSampleIDs.Subscribe(s =>
-			{
-				_selectedSampleIDs.Clear();
-				_selectedSampleIDs.AddRange(_allSampleIDs.Value);
-			});
 		}
 
 		public SampleIDDefinitionModel SampleIDDefinitionModel => _sampleIDDefinitionModel;
